@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">The Movie App</string>
+    <string name="title">Movies</string>
+    <string name="action">Ação</string>
+    <string name="drama">Drama</string>
+    <string name="fantasy">Fantasia</string>
+    <string name="fiction">Ficção</string>
+    <string name="description">Descrição</string>
+    <string name="title_description">Nome do Filme</string>
+    <string name="description_movie">Descrição do Filme</string>
+</resources>
