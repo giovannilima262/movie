@@ -8,6 +8,7 @@ class RetrofitInitializer {
 
     companion object {
         const val KEY = "f60e5007e3d01d8128081ff55491d77b"
+        const val LANGUAGE = "pt-BR"
     }
 
 

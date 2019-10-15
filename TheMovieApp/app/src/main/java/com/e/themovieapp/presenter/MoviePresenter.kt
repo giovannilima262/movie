@@ -5,6 +5,8 @@ import com.e.themovieapp.enums.GenreEnum
 import com.e.themovieapp.retrofit.model.Movie
 import com.e.themovieapp.retrofit.MovieResponse
 import com.e.themovieapp.retrofit.RetrofitInitializer
+import com.e.themovieapp.retrofit.RetrofitInitializer.Companion.KEY
+import com.e.themovieapp.retrofit.RetrofitInitializer.Companion.LANGUAGE
 import com.e.themovieapp.retrofit.model.RetrofitResult
 import retrofit2.Call
 import retrofit2.Callback
@@ -13,7 +15,7 @@ import retrofit2.Response
 class MoviePresenter: IMoviePresenter {
 
     override fun findByGenre(genre: GenreEnum, movieResponse: MovieResponse) {
-        val call = RetrofitInitializer().movieService().movieByGenre(genre.id, RetrofitInitializer.KEY)
+        val call = RetrofitInitializer().movieService().movieByGenre(genre.id, LANGUAGE, KEY)
         call.enqueue(object: Callback<RetrofitResult?> {
             override fun onResponse(call: Call<RetrofitResult?>?,
                                     response: Response<RetrofitResult?>?) {
@@ -31,7 +33,7 @@ class MoviePresenter: IMoviePresenter {
     }
 
     override fun findByTitle(title: String, movieResponse: MovieResponse) {
-        val call = RetrofitInitializer().movieService().movieByTitle(title, RetrofitInitializer.KEY)
+        val call = RetrofitInitializer().movieService().movieByTitle(title, LANGUAGE, KEY)
         call.enqueue(object: Callback<RetrofitResult?> {
             override fun onResponse(call: Call<RetrofitResult?>?,
                                     response: Response<RetrofitResult?>?) {

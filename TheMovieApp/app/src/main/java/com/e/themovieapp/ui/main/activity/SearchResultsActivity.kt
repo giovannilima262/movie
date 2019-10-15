@@ -1,8 +1,10 @@
 package com.e.themovieapp.ui.main.activity
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.e.themovieapp.R
 import com.e.themovieapp.adapter.MovieListAdapter
@@ -14,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_search_results.*
 class SearchResultsActivity : AppCompatActivity() {
 
     private var moviesList: MutableList<Movie> = mutableListOf()
+    var contextActivity = this
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,12 +41,13 @@ class SearchResultsActivity : AppCompatActivity() {
                         override fun success(movies: List<Movie>) {
                             if(moviesList.isEmpty()) {
                                 moviesList = movies.toMutableList()
-                                recycleViewScreen.adapter = MovieListAdapter(moviesList, applicationContext)
+                                recycleViewScreen.adapter = MovieListAdapter(moviesList, contextActivity)
                             }else {
                                 moviesList.clear()
                                 moviesList.addAll(movies)
                                 recycleViewScreen.adapter?.notifyDataSetChanged()
                             }
+                            keyboardScreen()
                         }
                     })
                 true
@@ -53,6 +57,12 @@ class SearchResultsActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    private fun keyboardScreen() {
+        input_text.clearFocus()
+        (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
+            .hideSoftInputFromWindow(input_text.windowToken, 0)
     }
 
     private fun backButton() {

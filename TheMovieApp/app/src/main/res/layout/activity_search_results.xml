@@ -49,6 +49,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:ems="10"
+                            android:imeOptions="actionDone"
                             android:inputType="textPersonName"
                             android:hint="@string/search"
                             app:layout_constraintBottom_toBottomOf="parent"

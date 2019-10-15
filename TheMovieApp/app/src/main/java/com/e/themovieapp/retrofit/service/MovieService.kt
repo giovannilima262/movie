@@ -8,8 +8,8 @@ import retrofit2.http.Query
 interface MovieService {
 
     @GET("discover/movie")
-    fun movieByGenre(@Query("with_genres") genreId: Int, @Query("api_key") api_key: String): Call<RetrofitResult>
+    fun movieByGenre(@Query("with_genres") genreId: Int, @Query("language") language: String, @Query("api_key") api_key: String): Call<RetrofitResult>
 
     @GET("search/movie")
-    fun movieByTitle(@Query("query") title: String, @Query("api_key") api_key: String): Call<RetrofitResult>
+    fun movieByTitle(@Query("query") title: String, @Query("language") language: String, @Query("api_key") api_key: String): Call<RetrofitResult>
 }
