@@ -5,8 +5,9 @@ import android.os.Bundle
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.e.themovieapp.R
-import com.e.themovieapp.model.Movie
+import com.e.themovieapp.retrofit.model.Movie
 import com.e.themovieapp.util.Extra.MOVIE
+import com.e.themovieapp.util.LinkImage
 import kotlinx.android.synthetic.main.activity_description.*
 
 class DescriptionActivity : AppCompatActivity() {
@@ -23,7 +24,7 @@ class DescriptionActivity : AppCompatActivity() {
         title = movie.title
         description.text = movie.description
         Glide.with(this)
-            .load(movie.imageUrl).apply(RequestOptions())
+            .load(LinkImage.find(movie.imageUrl)).apply(RequestOptions())
             .into(image)
     }
 

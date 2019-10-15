@@ -43,6 +43,7 @@
                 android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|end"
+                android:layout_marginBottom="@dimen/fab_margin"
                 android:text="@string/description_movie" />
         </LinearLayout>
 

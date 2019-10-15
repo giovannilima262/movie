@@ -11,7 +11,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.e.themovieapp.R
 import com.e.themovieapp.adapter.MovieListAdapter
 import com.e.themovieapp.enums.GenreEnum
-import com.e.themovieapp.model.Movie
+import com.e.themovieapp.retrofit.model.Movie
+import com.e.themovieapp.presenter.MoviePresenter
+import com.e.themovieapp.retrofit.MovieResponse
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 class PlaceholderFragment : Fragment() {
@@ -25,40 +27,31 @@ class PlaceholderFragment : Fragment() {
         }
     }
 
-    //FIXME remover este metodo e chamar os filmes pela api
-    private fun movies(): List<Movie> {
-        return listOf(
-            Movie(
-                title = "Zorro",
-                description = "Zorro",
-                genre = GenreEnum.ACTION,
-                imageUrl = "https://i.imgur.com/DvpvklR.png"
-            ),
-            Movie(
-                title = "Zorro",
-                description = "Zorro",
-                genre = GenreEnum.ACTION,
-                imageUrl = "https://i.imgur.com/DvpvklR.png"
-            ),
-            Movie(
-                title = "Zorro",
-                description = "Zorro",
-                genre = GenreEnum.ACTION,
-                imageUrl = "https://i.imgur.com/DvpvklR.png"
-            )
-        )
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val root = inflater.inflate(R.layout.fragment_main, container, false)
-        val recyclerView = (root.listMovie as RecyclerView)
-        recyclerView.adapter = MovieListAdapter(movies(), root.context)
+        recycleViewScreen(root)
+        return root
+    }
+
+    private fun recycleViewScreen(root: View?) {
+        val recyclerView = (root?.listMovie as RecyclerView)
+        findMoviesByGenre(root, recyclerView)
         val layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         recyclerView.layoutManager = layoutManager
-        return root
+
+    }
+
+    private fun findMoviesByGenre(root: View?, recyclerView: RecyclerView) {
+        MoviePresenter().findByGenre(GenreEnum.values()[(arguments?.getInt(ARG_SECTION_NUMBER) ?: 1) - 1],
+            object : MovieResponse {
+                override fun success(movies: List<Movie>) {
+                    recyclerView.adapter = MovieListAdapter(movies, root!!.context)
+                }
+        })
     }
 
     companion object {

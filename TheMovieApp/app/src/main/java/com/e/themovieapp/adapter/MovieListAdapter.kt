@@ -7,13 +7,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.e.themovieapp.R
-import com.e.themovieapp.model.Movie
+import com.e.themovieapp.retrofit.model.Movie
 import kotlinx.android.synthetic.main.list_item_movie.view.*
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import android.content.Intent
 import com.e.themovieapp.ui.main.activity.DescriptionActivity
 import com.e.themovieapp.util.Extra.MOVIE
+import com.e.themovieapp.util.LinkImage
 
 
 class MovieListAdapter(private val movies: List<Movie>, private val context: Context): Adapter<MovieListAdapter.ViewHolder>() {
@@ -31,7 +32,7 @@ class MovieListAdapter(private val movies: List<Movie>, private val context: Con
         val movie = movies[position]
         holder.title.text = movie.title
         Glide.with(context)
-            .load(movie.imageUrl).apply(RequestOptions())
+            .load(LinkImage.find(movie.imageUrl)).apply(RequestOptions())
             .into(holder.image)
         holder.itemView.setOnClickListener {
             val intent = Intent(context, DescriptionActivity::class.java)
